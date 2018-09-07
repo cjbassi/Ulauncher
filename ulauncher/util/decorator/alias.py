@@ -1,4 +1,3 @@
-
 def alias(alternative_function_name):
     '''see http://www.drdobbs.com/web-development/184406073#l9'''
     def decorator(function):
