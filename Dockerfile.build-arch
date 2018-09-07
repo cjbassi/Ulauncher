@@ -1,12 +1,32 @@
+# Build with:
+# docker build -t ulauncher/arch -f Dockerfile.build-arch .
+# Run with:
+# docker run -it --net=host --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" ulauncher/arch
+
 FROM base/archlinux
 
 MAINTAINER ulauncher.app@gmail.com
 
-WORKDIR /root/ulauncher
+RUN mkdir /ulauncher
+RUN chmod 777 /ulauncher
+WORKDIR /ulauncher
+
+COPY PKGBUILD .
 
 RUN pacman --noconfirm -Syu && \
     pacman --noconfirm -S \
+        base-devel \
         python \
         git \
-        grep \
-        openssh
+        sudo
+
+RUN useradd -m builduser
+RUN echo "builduser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+USER builduser
+
+RUN makepkg -si --noconfirm
+
+USER root
+
+CMD ["ulauncher"]
