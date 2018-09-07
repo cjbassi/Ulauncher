@@ -92,7 +92,7 @@ class ResultItemWidget(Gtk.EventBox):
             self.builder.get_object('item-name').set_margin_top(8)  # shift name label down to the center
 
     def set_shortcut(self, text):
-        self.builder.get_object('item-shortcut').set_text(text)
+        self.builder.get_object('item-shortcut').set_text('')
 
     def on_enter(self, query):
         return self.item_object.on_enter(query)
