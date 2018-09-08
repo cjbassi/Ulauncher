@@ -1,4 +1,3 @@
-
 class EventListener():
     """
     Base event listener class
